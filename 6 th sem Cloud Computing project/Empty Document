@@ -1,0 +1,12 @@
+sudo docker image rm -f mysql
+
+sudo docker network create my-network3
+sudo docker pull mysql
+sudo docker run -d --name mysql-serv --network my-network3 -e MYSQL_ROOT_PASSWORD=root mysql
+sudo docker run -it --rm --network my-network3 mysql sh -c 'exec mysql -h"mysql-serv" -P"3306" -uroot -p"root"'
+
+sudo docker network disconnect my-network
+
+
+
+sudo docker run -it -p 80:80 --rm --network my-network3 users
